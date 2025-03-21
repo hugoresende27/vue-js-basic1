@@ -56,9 +56,23 @@ var products = [
         "quantity": 1
     },
     {
+        "photo": "img/lipton.png",
+        "name": "Ice Tea Lemon",
+        "price": 46.99,
+        "active": false,
+        "quantity": 1
+    },
+    {
+        "photo": "img/lipton.png",
+        "name": "Ice Tea Orange",
+        "price": 23.99,
+        "active": false,
+        "quantity": 1
+    },
+    {
         "photo": "img/water.png",
-        "name": "Water",
-        "price": 1.49,
+        "name": "Water XXX",
+        "price": 11.49,
         "active": false,
         "quantity": 1
     }
@@ -67,9 +81,31 @@ var products = [
 const SelfServiceMachine = {
     data() {
         return {
-            message: "Hello World !"
+            products: window.products
+        }
+    },
+    computed: {
+        total() {
+            return this.products
+                .filter(product => product.active)
+                .reduce((sum, product) => {
+                    return sum + (product.quantity * product.price);
+                }, 0);
+        }
+    },
+    methods: {
+        total: function() {
+            let total = 0;
+            this.products.forEach(function(item) {
+                if (item.active) {
+                    total += item.price * item.quantity
+                }
+            });
+
+            return total;
         }
     }
+
 }
 
 Vue.createApp(SelfServiceMachine).mount('#app');
