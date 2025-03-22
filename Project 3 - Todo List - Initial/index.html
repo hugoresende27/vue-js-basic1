@@ -19,24 +19,17 @@
                 
                 
                 <h3>To-do List</h3>
-                
-                <div class="all-todos">
-                    <div class="single-todo done">
-                        <p>Learn HTML, CSS and Javascript</p>
-                    </div>
-                    <div class="single-todo done">
-                        <p>Learn the basics of Vue JS</p>
-                    </div>
-                    <div class="single-todo">
-                        <p>Complete Vue JS Challenge with excellence</p>
-                    </div>
 
+                <div class="all-todos" v-for="(item, index) in todoList" :key="index">
+                    <div class="single-todo" :class="{ done: item.done }">
+                        <p @click="toggleDone(index)">{{ item.text }}</p>
+                    </div>
                 </div>
 
-                <button class="clear">Clear All</button>
+                <button class="clear" @click="clearAll">Clear All</button>
 
-                <input type="text" placeholder="Add new to-do">
-                <button class="add">Add</button>
+                <input type="text" placeholder="Add new to-do" v-model="newItem">
+                <button class="add" @click="addItem">Add</button>
 
                 <div class="instructions">
                     Instructions:
@@ -49,7 +42,7 @@
             </section>
 
         </main>
-        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="scripts.js"></script>
     </body>
 
