@@ -21,15 +21,20 @@
                 <h3>To-do List</h3>
 
                 <div class="all-todos" v-for="(item, index) in todoList" :key="index">
-                    <div class="single-todo" :class="{ done: item.done }">
-                        <p @click="toggleDone(index)">{{ item.text }}</p>
+                    <div
+                            class="single-todo"
+                            :class="{ done: item.done }">
+                        <p @click="item.done = !item.done; storeTodos();">{{ item.text }}</p>
                     </div>
                 </div>
-
-                <button class="clear" @click="clearAll">Clear All</button>
+                <button
+                        v-if="todoList.length"
+                        class="clear"
+                        @click="todoList = []; storeTodos();">
+                    Clear All</button>
 
                 <input type="text" placeholder="Add new to-do" v-model="newItem">
-                <button class="add" @click="addItem">Add</button>
+                <button class="add" @click="addItem(); storeTodos();">Add</button>
 
                 <div class="instructions">
                     Instructions:

@@ -12,20 +12,29 @@ const handlingTodoList = {
             const trimmedItem = this.newItem.trim();
 
             if (trimmedItem !== '') {
-                // Add item as object to handle "done" state later
                 this.todoList.push({ text: trimmedItem, done: false });
-                this.newItem = ''; // reset input
+                this.newItem = '';
+                localStorage.setItem("todos", JSON.stringify(this.todoList));
             } else {
                 alert('Empty item');
             }
         },
-        clearAll() {
-            this.todoList = [];
-        },
-        toggleDone(index) {
-            // Toggle 'done' status of item
-            this.todoList[index].done = !this.todoList[index].done;
+        storeTodos() {
+            localStorage.setItem("todos", JSON.stringify(this.todoList));
+            console.log('updated');
         }
+        // clearAll() {
+        //     this.todoList = [];
+        // },
+        // toggleDone(index) {
+        //     this.todoList[index].done = !this.todoList[index].done;
+        // }
+    },
+    created() {
+        this.todoList = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : this.todoList;
+    },
+    updated() {
+        localStorage.setItem("todos", JSON.stringify(this.todoList));
     }
 
 };
